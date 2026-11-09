@@ -7,46 +7,7 @@ import { ExpenseService } from '../../core/services/expense.service';
 @Component({
   standalone: true,
   imports: [CurrencyPipe, DatePipe, DecimalPipe, RouterLink],
-  template: `
-    <section class="page-heading">
-      <div><span class="eyebrow">TVOJ OSOBNÝ PREHĽAD</span><h1>Ahoj, Adam <span class="wave">✳</span></h1><p>Tu je tvoj finančný prehľad. Malé kroky sa počítajú.</p></div>
-      <a class="button button-primary" routerLink="/vydavky/novy"><span>＋</span> Pridať výdavok</a>
-    </section>
-
-    <section class="summary-grid">
-      <article class="card balance-card"><div class="balance-top"><span class="balance-label">Modelový zostatok v pokladničke</span><span class="balance-icon">◌</span></div><div class="balance-value">{{ balance() | currency:'EUR':'symbol':'1.2-2':'sk' }}</div><div class="balance-foot"><span class="balance-caption">Ilustračné demo číslo <span class="soft-dot">·</span> pokladnička nie je pripojená</span></div><div class="balance-orb"></div></article>
-      <article class="card summary-card"><div class="summary-icon mint">↗</div><span class="summary-label">Výdavky tento mesiac</span><strong class="summary-value">{{ monthTotal() | currency:'EUR':'symbol':'1.2-2':'sk' }}</strong><span class="summary-caption"><span class="tiny-green">●</span> Spolu od začiatku mesiaca</span><div class="mini-bars" aria-hidden="true"><i style="height:25%"></i><i style="height:43%"></i><i style="height:34%"></i><i style="height:67%"></i><i style="height:48%"></i><i style="height:79%"></i><i style="height:57%"></i><i style="height:100%"></i></div></article>
-      <article class="card summary-card"><div class="summary-icon lilac">⌁</div><span class="summary-label">Zaznamenané nákupy</span><strong class="summary-value">{{ monthCount() }} <small>položiek</small></strong><span class="summary-caption">Tento mesiac zatiaľ</span><div class="count-pills"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
-    </section>
-
-    <section class="content-grid">
-      <article class="card chart-card"><div class="section-head"><div><h2>Tvoje výdavky</h2><p>Prehľad za posledných 7 dní</p></div><span class="period-chip">Tento týždeň <span>⌄</span></span></div>
-        <div class="chart-legend"><span><i class="legend-swatch"></i>Výdavky</span><strong>{{ weekTotal() | currency:'EUR':'symbol':'1.2-2':'sk' }}</strong></div>
-        <div class="weekly-chart" aria-label="Stĺpcový graf výdavkov za posledných sedem dní">
-          @for (bar of weekBars(); track bar.label) {
-            <div class="bar-column"><span class="bar-value">{{ bar.amount ? (bar.amount | number:'1.0-0') + ' €' : '' }}</span><div class="bar-track"><div class="bar-fill" [class.bar-today]="$last" [style.height.%]="bar.percent"></div></div><span class="bar-label" [class.label-today]="$last">{{ bar.label }}</span></div>
-          }
-        </div>
-      </article>
-      <article class="card category-card"><div class="section-head"><div><h2>Kam idú peniaze?</h2><p>Podľa kategórií tento mesiac</p></div><a routerLink="/vydavky" class="text-link">Detaily ↗</a></div>
-        <div class="category-list">
-          @for (item of topCategories(); track item.id) {
-            <div class="category-row"><span class="category-emoji" [style.background-color]="item.color + '22'">{{ item.icon }}</span><div class="category-info"><div class="category-line"><strong>{{ item.name }}</strong><span>{{ item.amount | currency:'EUR':'symbol':'1.2-2':'sk' }}</span></div><div class="category-track"><i [style.width.%]="item.percent" [style.background-color]="item.color"></i></div></div></div>
-          }
-          @if (topCategories().length === 0) { <div class="empty-inline">Zatiaľ tu nie sú výdavky. Pridaj prvý nákup a prehľad sa začne plniť.</div> }
-        </div>
-      </article>
-    </section>
-
-    <section class="card recent-card"><div class="section-head"><div><h2>Nedávne výdavky</h2><p>Tvoje posledné zaznamenané nákupy</p></div><a routerLink="/vydavky" class="text-link">Všetky výdavky <span>→</span></a></div>
-      <div class="expense-table"><div class="table-header"><span>POLOŽKA</span><span>KATEGÓRIA</span><span>DÁTUM</span><span>SUMA</span></div>
-        @for (expense of recent(); track expense.id) {
-          <a class="expense-row" [routerLink]="['/vydavky', expense.id]"><span class="item-cell"><i class="item-emoji" [style.background-color]="category(expense.category).color + '22'">{{ category(expense.category).icon }}</i><span><strong>{{ expense.title }}</strong><small>{{ expense.merchant || 'Bez obchodníka' }}</small></span></span><span class="category-cell">{{ category(expense.category).name }}</span><span class="date-cell">{{ expense.date | date:'d. MMM':'':'sk' }}</span><strong class="amount-cell">−{{ expense.amount | currency:'EUR':'symbol':'1.2-2':'sk' }}</strong></a>
-        }
-        @if (recent().length === 0) { <div class="empty-inline">Zatiaľ bez výdavkov. <a routerLink="/vydavky/novy">Pridaj prvý výdavok →</a></div> }
-      </div>
-    </section>
-  `,
+  templateUrl: './dashboard.component.html',
 })
 export class DashboardComponent {
   private readonly service = inject(ExpenseService);
