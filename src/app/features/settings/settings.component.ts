@@ -12,7 +12,7 @@ export class SettingsComponent {
   readonly ask = signal(false);
   readonly done = signal(false);
   reset(): void {
-    this.service.resetDemo();
+    this.service.resetExamples();
     this.ask.set(false);
     this.done.set(true);
   }

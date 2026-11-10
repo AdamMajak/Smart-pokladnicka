@@ -3,7 +3,6 @@ export type CategoryId = 'jedlo' | 'doprava' | 'nakupy' | 'zabava' | 'byvanie' |
 export interface Category {
   id: CategoryId;
   name: string;
-  icon: string;
   color: string;
 }
 
