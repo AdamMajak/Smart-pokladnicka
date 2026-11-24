@@ -1,0 +1,3 @@
+[submodule "backend/fastapi_module"]
+	path = backend/fastapi_module
+	url = git@github.com:AdamMajak/Smart-module.git
